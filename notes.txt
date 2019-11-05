@@ -1,0 +1,8 @@
+For refresher:
+- Create a new list that is similar to the ScreenValues
+- If new list is different than ScreenValues (if a change happened in ScreenValues)
+-> Clear console with os.system('cls') and reprint ScreenValues (recall ScreenPrinter)
+
+Note: U won't need to import time since u will change the velocity of the movement of the snake not by -->
+the refreash rate increase, but rather, by changing the time it takes for the snake head to change -->
+its position, that is, move forward to the direction of its motion.
