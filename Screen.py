@@ -1,3 +1,7 @@
+import os
+import time
+
+
 def ScreenMaker(Screen_x, Screen_y):
     ScreenAxis = []
     Screen = {}
@@ -21,10 +25,16 @@ def ScreenPrinter(ScreenValues, Screen_y):
             '[', '').replace(',', '').replace(']', '').replace("'", ''))
 
 
-def ScreenRefresher(ScreenValues, Screen_y, ScreenChecker):
+def ScreenRefresher(ScreenValues, Screen_y, ScreenChecker, TimeDelay):
     # When placing the ScreenChecker, remember that it musts be equal to list(ScreenValues).
     if ScreenChecker != ScreenValues:
+        if os.name == 'nt': # If windows.
+            os.system('cls')
+        else: # If linux or others (assuming they are linux based).
+            os.system('clear')
+        time.sleep(TimeDelay) # Time delay for refresh rate purposes.
         ScreenPrinter(ScreenValues, Screen_y)
+
 
 '''
 In order to use these commands, you first declare x and y then run

@@ -2,12 +2,13 @@ import Screen
 # Setting x and y:
 x = 15
 y = 50
-place = 10
+place = 10 # Making an initial position
+# Calling Screen.py
 Board = Screen.ScreenMaker(x, y)
 BoardValues = Screen.ScreenValuer(Board)
 Checker = list(BoardValues)
 BoardValues[place] = 'O'
-def Movement(StartingPostion): # wasd
+def Movement(StartingPostion, y_Axis_Length): # wasd for movement
     postion = StartingPostion
     while True:
         Choice = input()
@@ -19,5 +20,13 @@ def Movement(StartingPostion): # wasd
             BoardValues[postion] = '.'
             BoardValues[postion - 1] = 'O'
             postion = postion - 1
-        Screen.ScreenRefresher(BoardValues,y,Checker)
-Movement(place)
+        if Choice == 's':
+            BoardValues[postion] = '.'
+            BoardValues[postion + y_Axis_Length] = 'O'
+            postion = postion + y_Axis_Length
+        if Choice == 'w':
+            BoardValues[postion] = '.'
+            BoardValues[postion - y_Axis_Length] = 'O'
+            postion = postion - y_Axis_Length
+        Screen.ScreenRefresher(BoardValues,y,Checker,0)
+Movement(place,y)
