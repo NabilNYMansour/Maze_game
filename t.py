@@ -38,6 +38,7 @@ def ScreenPlayer(ScreenValues, Screen_y):
         Thread(target=switch).start()
         Thread(target=player).start()
 '''
+'''
 from Screen import ScreenMaker, ScreenPrinter, ScreenRefresher, ScreenValuer
 
 x = 15
@@ -65,3 +66,9 @@ for counter in range(0, (y*x)-y+1, y):  # Left Border
 for counter in range(y-1, (y*x), y):  # Right Border
     ScreenValues[counter] = '+'
 ScreenRefresher(ScreenValues, y, Checker, 0)
+'''
+import msvcrt
+toPrint = msvcrt.getch()
+print((toPrint))
+if str(toPrint) == "b's'":
+    print('s')
