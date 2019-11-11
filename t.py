@@ -1,3 +1,4 @@
+'''
 from threading import Thread
 on = ''
 def func1():
@@ -13,7 +14,7 @@ if __name__ == '__main__':
     Thread(target = func1).start()
     Thread(target = func2).start()
 
-'''
+#
 def ScreenPlayer(ScreenValues, Screen_y):
     # Press f to turn off
     on = ''
@@ -34,4 +35,16 @@ def ScreenPlayer(ScreenValues, Screen_y):
     if __name__ == '__main__':
         Thread(target=switch).start()
         Thread(target=player).start()
-        '''
+'''
+from Screen import ScreenMaker,ScreenPrinter,ScreenRefresher,ScreenValuer
+
+x = 15
+y = 30
+Screen = ScreenMaker(x, y)
+ScreenValues = ScreenValuer(Screen)
+Checker = list(ScreenValues)
+ScreenValues[0] = 'X'
+ScreenValues[y - 1] = 'X'
+ScreenValues[(y*x) - y] = 'X'
+ScreenValues[(y*x) - 1] = 'X'
+ScreenRefresher(ScreenValues, y, Checker,0)
