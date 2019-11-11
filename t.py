@@ -72,3 +72,5 @@ toPrint = msvcrt.getch()
 print((toPrint))
 if str(toPrint) == "b's'":
     print('s')
+
+# For linux, the raw input would be like this http://code.activestate.com/recipes/134892-getch-like-unbuffered-character-reading-from-stdin/.
