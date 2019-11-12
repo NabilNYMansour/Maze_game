@@ -2,7 +2,7 @@ import os
 import time
 
 
-def ScreenMaker(Screen_x, Screen_y):
+def ScreenMaker(Screen_x, Screen_y, EmptyPixetValue):  # A pixet is a pixel for a terminal.
     ScreenAxis = []
     Screen = {}
     # The grid starts at (1,1) and ends at (ScreenSize, ScreenSize)
@@ -10,7 +10,7 @@ def ScreenMaker(Screen_x, Screen_y):
         for y in range(Screen_y):
             ScreenAxis.append((x, y))
     for counter in range(len(ScreenAxis)):
-        Screen[ScreenAxis[counter]] = '.'
+        Screen[ScreenAxis[counter]] = EmptyPixetValue
     return Screen
 
 
