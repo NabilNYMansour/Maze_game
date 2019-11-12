@@ -10,7 +10,8 @@ its position, that is, move forward to the direction of its motion.
 - Do remember to add 'cls' to refresher ||
 - add the formula for movement for upwards (w) and downwards (s). ||
 - add a limiter so that if the user presses w when on the top of the screen, he won't go to the bottom (the same for asd (the rest of movement)). |
-- add a raw input for Screen.
-- have the head turn into v^<> when near an apple.
+- add a raw input for Screen. ||
+- Fix flickering issue in printing.
+- have the head turn into v^<>. ||
 - add apples
 - Do use a paper and a pen when doing these ideas (do sudo code first).
