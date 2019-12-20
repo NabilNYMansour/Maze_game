@@ -1,0 +1,31 @@
+For refresher: DONE
+- Create a new list that is similar to the ScreenValues
+- If new list is different than ScreenValues (if a change happened in ScreenValues)
+-> Clear console with os.system('cls') and reprint ScreenValues (recall ScreenPrinter)
+
+Note: U won't need to import time since u will change the velocity of the movement of the snake not by -->
+the refresh rate increase, but rather, by changing the time it takes for the snake head to change -->
+its position, that is, move forward to the direction of its motion.
+
+For Corners and Borders:
+
+  0   ->->->  y-1
+|               |
+v               v
+|               |
+v               v
+ yx-y ->->->  yx-1
+
+Legend:
+-> Skip by 1 (Horizontal)
+|  Skip by y (Vertical)
+v
+
+- Do remember to add 'cls' to refresher DONE
+- add the formula for movement for upwards (w) and downwards (s). DONE
+- add a limiter so that if the user presses w when on the top of the screen, he won't go to the bottom (the same for asd (the rest of movement)).
+- add a raw input for Screen. DONE
+- Fix flickering issue in printing.
+- have the head turn into v^<>. DONE
+- add apples
+- Do use a paper and a pen when doing these ideas (do sudo code first).
