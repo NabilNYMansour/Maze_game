@@ -2,10 +2,16 @@ import os
 import time
 
 
-def ScreenMaker(Screen_x, Screen_y, EmptyPixetValue):  # A pixet is a pixel for a terminal.
+def ScreenMaker(Screen_x, Screen_y, EmptyPixetValue):
+    '''
+    Creates a screen given Screen_x{int} and Screen_y{int} coordinates and places EmptyPixetValue{single char. str} as the screen empty value.
+    The output is a dictionary of that contains coordinates as keys and pixets as values.
+    Notes:
+    - The grid starts at (1,1) and ends at (Screen_x, Screen_y).
+    - A pixet is a pixel for a terminal.
+    '''
     ScreenAxis = []
     Screen = {}
-    # The grid starts at (1,1) and ends at (ScreenSize, ScreenSize)
     for x in range(Screen_x):
         for y in range(Screen_y):
             ScreenAxis.append((x, y))
@@ -15,17 +21,28 @@ def ScreenMaker(Screen_x, Screen_y, EmptyPixetValue):  # A pixet is a pixel for 
 
 
 def ScreenValuer(Screen):
+    '''
+    Takes the values from Screen{dict} and returns their values as a list. (So output is a list).
+    '''
     ScreenValues = list(Screen.values())
     return ScreenValues
 
 
 def ScreenPrinter(ScreenValues, Screen_y):
+    '''
+    Prints the Screen in then console given the ScreenValues{list} and Screen_y{int}. Works with accordance with ScreenMaker and ScreenValuer
+    '''
     for counter_print in range(0, len(ScreenValues), Screen_y):
         print(str(ScreenValues[counter_print:(counter_print + Screen_y)]).replace(
             '[', '').replace(',', '').replace(']', '').replace("'", ''))
 
 
 def ScreenRefresher(ScreenValues, Screen_y, ScreenChecker, TimeDelay):
+    '''
+    Reprints the screen if ScreenValues{list} is different from ScreenChecker{list} as ScreenChecker should be declared
+    in the begining of the code as = list(ScreenValues), the Screen_y{int} is needed for reprinting.
+    TimeDelay{float} allows for a bit of delay in reprinting. If no delay is desired, place TimeDelay = 0 as the last argument.
+    '''
     # When placing the ScreenChecker, remember that it musts be equal to list(ScreenValues).
     if ScreenChecker != ScreenValues:
         if os.name == 'nt':  # If windows.

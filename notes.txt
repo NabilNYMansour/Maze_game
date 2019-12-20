@@ -1,4 +1,4 @@
-For refresher: ||
+For refresher: DONE
 - Create a new list that is similar to the ScreenValues
 - If new list is different than ScreenValues (if a change happened in ScreenValues)
 -> Clear console with os.system('cls') and reprint ScreenValues (recall ScreenPrinter)
@@ -21,11 +21,11 @@ Legend:
 |  Skip by y (Vertical)
 v
 
-- Do remember to add 'cls' to refresher ||
-- add the formula for movement for upwards (w) and downwards (s). ||
-- add a limiter so that if the user presses w when on the top of the screen, he won't go to the bottom (the same for asd (the rest of movement)). |
-- add a raw input for Screen. ||
+- Do remember to add 'cls' to refresher DONE
+- add the formula for movement for upwards (w) and downwards (s). DONE
+- add a limiter so that if the user presses w when on the top of the screen, he won't go to the bottom (the same for asd (the rest of movement)).
+- add a raw input for Screen. DONE
 - Fix flickering issue in printing.
-- have the head turn into v^<>. ||
+- have the head turn into v^<>. DONE
 - add apples
 - Do use a paper and a pen when doing these ideas (do sudo code first).
