@@ -1,5 +1,5 @@
 import os
-import time
+import random
 import msvcrt
 
 
@@ -27,7 +27,7 @@ def Grid_Printer(Grid):
     # the y axis is needed to know where to stop printing each line and to skip y times to start the next line.
     for i in range(0, len(list(Grid.values())), y_max):
         print(str(list(Grid.values())[i:(i + y_max)]).replace('[', '').replace(
-            ',', '').replace(']', '').replace("'", ''))
+            ',', '').replace(']', '').replace("'", '').replace(' ',''))
 
 
 def Movement(Grid, Position_x, Position_y, trail):
@@ -82,6 +82,58 @@ def Start_End(Grid):
     Grid[(x_max,y_max)] = 'E'
 
 
+def Maze_Maker(Grid):
+    '''
+    Creates a Maze given a Grid{dict}
+    '''
+    #-------------------In line functions--------------------#
+    def Break(x,y):
+        '''Destroys a wall given x,y coordinates'''
+        Grid[(x,y)] = '.'
+    def Check_X_amount(x,y):
+        '''Checks the number of X's that are around the position with x,y coordinates. Will return an int of the number of said X's'''
+        def To_See(x,y):
+            '''Will output True if coordinates x,y show an X, False otherwise'''
+            if Grid[(x,y)] == 'X':
+                return True
+            else:
+                return False
+        To_Return = 0
+        # +-2 is placed due to the walls.
+        if To_See(x+2,y):  # down
+            To_Return += 1
+        if To_See(x-2,y):  # up
+            To_Return += 1
+        if To_See(x,y+2):  # left
+            To_Return += 1
+        if To_See(x,y-2):  # right
+            To_Return += 1
+    #--------------------------------------------------------#
+    #-----------------Establishing the start-----------------#
+    Position = (0,0)
+    coin = random.randrange(2)
+    if coin == 0:
+        Break(1,0)
+        Position = (2,0)
+    elif coin == 1:
+        Break(0,1)
+        Position = (0,2)
+    #--------------------------------------------------------#
+    coin = random.randrange(Check_X_amount)
+    if coin == 0:
+        Break(1,0)
+        Position = (2,0)
+    elif coin == 1:
+        Break(0,1)
+        Position = (0,2)
+    elif coin == 2:
+        Break(1,0)
+        Position = (2,0)
+    elif coin == 3:
+        Break(0,1)
+        Position = (0,2)
+
+
 # It is best if x and y are odd numbers.
 t = 'X'
 x = 15
@@ -89,5 +141,6 @@ y = 81
 G = Grid_Maker(x, y, t)
 Wall_Maker(G)
 Start_End(G)
+Maze_Maker(G)
 Grid_Printer(G)
 # Movement(G, 0, 0, t)
