@@ -302,20 +302,24 @@ def Maze_Maker(Grid):
 Replay = True
 Change_Coordinates = True
 print('You will start from top left in S and must reach the bottom right in E in order to win!')
+print('Game works best if u maximize the terminal window.')
 while Replay:
     while Change_Coordinates:
         try:
-            x = int(input('Put odd x coordinate value (max of 13 is advised): '))
-            y = int(input('Put odd y coordinate value (max of 81 is advised): '))
+            x = int(input('Put odd x coordinate value (min of 10 is advised): '))
+            y = int(input('Put odd y coordinate value (min of 10 is advised): '))
             if x % 2 == 0:
                 x += 1
             if y % 2 == 0:
                 y += 1
+            if x < 10 or y < 10:
+                raise ValueError
             Change_Coordinates = False
-        except TypeError:
+        except ValueError:
             print('Default of x = 13, y = 13 will be selected.')
+            time.sleep(2)
             x, y = 13, 13
-            False
+            Change_Coordinates = False
     G = Grid_Maker(x, y, 'X')
     Wall_Maker(G)
     Start_End(G)
