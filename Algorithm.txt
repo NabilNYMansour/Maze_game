@@ -1,0 +1,12 @@
+This is how the algorithm in Maze_Maker() works:
+1. While there are X's in the grid:
+    1. # Given an initial position, see where are the X's.
+    2. flip a coin and connect to that specific X making it a dot.
+    3. Make next position the position of the new dot and repeat 1 and 2 until there are no more dots.
+    4. if no more dots, search the grid for an X from top right to bottom left for an X that has an X in one of its sides, and a dot in another.
+    5. repeat 1,2,3,4 until there are no more X's on the grid which will end the while statement.
+2. If the point is block (the end point being bottom, left point on grid), flip a coin and make it a dot.
+
+note:
+- dots are connected points on the grid.
+- X's are non connected points on the grid.
