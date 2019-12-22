@@ -1,1 +1,8 @@
-- Start working on the algorithm for the maze generator.
+- Start working on the algorithm for the maze generator. DONE
+- Fix going over the wall in Movement()
+- Do it such that the x,y don't have to be odd numbers.
+- Establish a timer and a game over screen for it.
+- Make it so that there is a start screen with settings that can change the x,y coordinates of the grid, timer time, dots or no dots as empty
+    spaces that are walkable, and type of wall and moveable head (complete customization).
+- Make it so the settings are saved for the player.
+
