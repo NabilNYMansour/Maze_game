@@ -1,4 +1,5 @@
 - Start working on the algorithm for the maze generator. DONE
+- Fix bug where u can get completely blocked (there must always be a connection).
 - Fix going over the wall in Movement()
 - Do it such that the x,y don't have to be odd numbers.
 - Establish a timer and a game over screen for it.
