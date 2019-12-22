@@ -34,33 +34,107 @@ def Grid_Printer(Grid):
     print('◻ '*(y_max+2))
 
 
+def Win_Screen(Grid, counter):
+    '''Prints a "YOU WIN!" in the middle of the Grid and shows number of moves.'''
+    x_mid = (list(Grid.keys())[-1][0] + 1)//2
+    y_mid = (list(Grid.keys())[-1][-1] + 1)//2
+    # YOU WIN!
+    Grid[(x_mid - 1, y_mid - 4)] = ' '
+    Grid[(x_mid - 1, y_mid - 3)] = 'Y'
+    Grid[(x_mid - 1, y_mid - 2)] = 'O'
+    Grid[(x_mid - 1, y_mid - 1)] = 'U'
+    Grid[(x_mid - 1, y_mid)] = ' '
+    Grid[(x_mid - 1, y_mid + 1)] = 'W'
+    Grid[(x_mid - 1, y_mid + 2)] = 'I'
+    Grid[(x_mid - 1, y_mid + 3)] = 'N'
+    Grid[(x_mid - 1, y_mid + 4)] = '!'
+    Grid[(x_mid - 1, y_mid + 5)] = ' '
+    # Moves:
+    Grid[(x_mid, y_mid - 3)] = ' '
+    Grid[(x_mid, y_mid - 2)] = 'M'
+    Grid[(x_mid, y_mid - 1)] = 'o'
+    Grid[(x_mid, y_mid)] = 'v'
+    Grid[(x_mid, y_mid + 1)] = 'e'
+    Grid[(x_mid, y_mid + 2)] = 's'
+    Grid[(x_mid, y_mid + 3)] = ':'
+    Grid[(x_mid, y_mid + 4)] = ' '
+    # counter that centers the length to the middle such that 01234 becomes -2-1012.
+    length = len(str(counter))
+    j = length - 1
+    if length % 2 == 0:
+        Grid[(x_mid + 1, y_mid - length//2)] = ' '
+    else:
+        Grid[(x_mid + 1, y_mid - (length//2 + 1))] = ' '
+    for i in range(length//2, - length//2, - 1):
+        Grid[(x_mid + 1, y_mid + i)] = str(counter)[j]
+        j -= 1
+    Grid[(x_mid + 1, y_mid + 1 + length//2)] = ' '
+
+
 def Movement(Grid, Position_x, Position_y, trail):
     '''
     Places a head as string 'O' in Grid{dict} and allows for the movement of the head using wsad.
     Utilizes Grid_Printer
     Requires the current position of snake head x and y coordinates.
-    The trail can be changed using trail{single char. str}.
-    Will not allow movement if a wall exists.
+    # The trail can be changed using trail{single char. str}.
+    # Or, the trail can be a counter of moves.
+    Will not allow movement if a wall exists and will assume that the wall is ◻.
     '''
+    counter = 0
     while True:
-        Choice = msvcrt.getch()
-        if str(Choice) == "b'd'":
-            Grid[(Position_x, Position_y)] = trail
-            Grid[(Position_x, Position_y + 1)] = 'O'
-            Position_y += 1
-        if str(Choice) == "b'a'":
-            Grid[(Position_x, Position_y)] = trail
-            Grid[(Position_x, Position_y - 1)] = 'O'
-            Position_y -= 1
-        if str(Choice) == "b's'":
-            Grid[(Position_x, Position_y)] = trail
-            Grid[(Position_x + 1, Position_y)] = 'O'
-            Position_x += 1
-        if str(Choice) == "b'w'":
-            Grid[(Position_x, Position_y)] = trail
-            Grid[(Position_x - 1, Position_y)] = 'O'
-            Position_x -= 1
-        Grid_Printer(Grid)
+        try:
+            Choice = msvcrt.getch()
+            if str(Choice) == "b'd'":
+                if Grid[(Position_x, Position_y + 1)] == '◻':
+                    pass
+                elif Grid[(Position_x, Position_y + 1)] == 'E':  # Win screen.
+                    Win_Screen(Grid, counter)
+                    Grid_Printer(Grid)
+                    return
+                else:
+                    Grid[(Position_x, Position_y)] = trail
+                    Grid[(Position_x, Position_y + 1)] = 'O'
+                    Position_y += 1
+                    counter += 1
+            if str(Choice) == "b'a'":
+                if Grid[(Position_x, Position_y - 1)] == '◻':
+                    pass
+                elif Grid[(Position_x, Position_y - 1)] == 'E':
+                    Win_Screen(Grid, counter)
+                    Grid_Printer(Grid)
+                    return
+                else:
+                    Grid[(Position_x, Position_y)] = trail
+                    Grid[(Position_x, Position_y - 1)] = 'O'
+                    Position_y -= 1
+                    counter += 1
+            if str(Choice) == "b's'":
+                if Grid[(Position_x + 1, Position_y)] == '◻':
+                    pass
+                elif Grid[(Position_x + 1, Position_y)] == 'E':
+                    Win_Screen(Grid, counter)
+                    Grid_Printer(Grid)
+                    return
+                else:
+                    Grid[(Position_x, Position_y)] = trail
+                    Grid[(Position_x + 1, Position_y)] = 'O'
+                    Position_x += 1
+                    counter += 1
+            if str(Choice) == "b'w'":
+                if Grid[(Position_x - 1, Position_y)] == '◻':
+                    pass
+                elif Grid[(Position_x - 1, Position_y)] == 'E':
+                    Win_Screen(Grid, counter)
+                    Grid_Printer(Grid)
+                    return
+                else:
+                    Grid[(Position_x, Position_y)] = trail
+                    Grid[(Position_x - 1, Position_y)] = 'O'
+                    Position_x -= 1
+                    counter += 1
+            Grid_Printer(Grid)
+        except KeyError:
+            pass
 
 
 def Wall_Maker(Grid):
@@ -100,10 +174,10 @@ def Maze_Maker(Grid):
         '''Destroys a wall given x,y coordinates'''
         Grid[(x, y)] = '.'
 
-    def To_See(x, y):
-        '''Will output True if coordinates x,y show an X, False otherwise'''
+    def To_See(x, y, pixet):
+        '''Will output True if coordinates x,y show a pixet, False otherwise'''
         try:
-            if Grid[(x, y)] == 'X':
+            if Grid[(x, y)] == pixet:
                 return True
             else:
                 return False
@@ -117,44 +191,34 @@ def Maze_Maker(Grid):
         '''
         W, S, A, D = False, False, False, False
         # +-2 is placed due to the walls.
-        if To_See(x-2, y):  # up
+        if To_See(x-2, y, 'X'):  # up
             W = True
-        if To_See(x+2, y):  # down
+        if To_See(x+2, y, 'X'):  # down
             S = True
-        if To_See(x, y-2):  # left
+        if To_See(x, y-2, 'X'):  # left
             A = True
-        if To_See(x, y+2):  # right
+        if To_See(x, y+2, 'X'):  # right
             D = True
         return (W, S, A, D)
 
     def Check_X_dot(x, y):
         '''Checks if there is at least one dot and one X around coordinates x,y'''
         X, dot = False, False
-        if To_See(x-2, y):  # up
+        if To_See(x-2, y, 'X'):  # up
             X = True
-        if To_See(x+2, y):  # down
+        if To_See(x+2, y, 'X'):  # down
             X = True
-        if To_See(x, y-2):  # left
+        if To_See(x, y-2, 'X'):  # left
             X = True
-        if To_See(x, y+2):  # right
+        if To_See(x, y+2, 'X'):  # right
             X = True
-
-        def To_See_dot(x, y):
-            '''Will output True if coordinates x,y show a dot, False otherwise'''
-            try:
-                if Grid[(x, y)] == '.':
-                    return True
-                else:
-                    return False
-            except:
-                return False
-        if To_See_dot(x-2, y):  # up
+        if To_See(x-2, y, '.'):  # up
             dot = True
-        if To_See_dot(x+2, y):  # down
+        if To_See(x+2, y, '.'):  # down
             dot = True
-        if To_See_dot(x, y-2):  # left
+        if To_See(x, y-2, '.'):  # left
             dot = True
-        if To_See_dot(x, y+2):  # right
+        if To_See(x, y+2, '.'):  # right
             dot = True
         return (X, dot)
 
@@ -175,6 +239,21 @@ def Maze_Maker(Grid):
             return True
         else:
             return False
+
+    def Break_to_dot(x, y):
+        '''Checks where there is a dot next to position with x,y coordinates and breaks the wall in between'''
+        if To_See(x-2, y, '.'):  # up
+            Break(x-1, y)
+            return
+        if To_See(x+2, y, '.'):  # down
+            Break(x+1, y)
+            return
+        if To_See(x, y-2, '.'):  # left
+            Break(x, y-1)
+            return
+        if To_See(x, y+2, '.'):  # right
+            Break(x, y+1)
+            return
 
     while Check_any_X_in_Grid(Grid):
         Check = Check_X(Position[0], Position[1])
@@ -207,6 +286,7 @@ def Maze_Maker(Grid):
                 for j in range(y_max):
                     if Check_X_dot(i, j) == (True, True):
                         Position = (i, j)
+                        Break_to_dot(i, j)
                         break
     if Check_around_E():
         coin = random.randrange(2)
@@ -218,10 +298,11 @@ def Maze_Maker(Grid):
 
 # It is best if x and y are odd numbers.
 x = 13
-y = 79
+y = 81
 G = Grid_Maker(x, y, 'X')
 Wall_Maker(G)
 Start_End(G)
 Maze_Maker(G)
+# Win_Screen(G, 5000)
 Grid_Printer(G)
-# Movement(G, 0, 0, '.')
+Movement(G, 0, 0, '.')
