@@ -4,6 +4,7 @@ import msvcrt
 import time
 
 
+#------------------------|The functions|------------------------#
 def Grid_Maker(x, y, Empty_Point_Value):
     '''
     Creates a grid given x{int} and y{int} coordinates and places Empty_Point_Value{single char. str} as the empty values in the grid.
@@ -294,15 +295,42 @@ def Maze_Maker(Grid):
             Grid[(x_max - 2, y_max - 1)] = '.'
         else:
             Grid[(x_max - 1, y_max - 2)] = '.'
+#---------------------------------------------------------------#
 
 
-# It is best if x and y are odd numbers.
-x = 13
-y = 81
-G = Grid_Maker(x, y, 'X')
-Wall_Maker(G)
-Start_End(G)
-Maze_Maker(G)
-# Win_Screen(G, 5000)
-Grid_Printer(G)
-Movement(G, 0, 0, '.')
+#------------------------|Declarations and Organizations|------------------------#
+Replay = True
+Change_Coordinates = True
+print('You will start from top left in S and must reach the bottom right in E in order to win!')
+while Replay:
+    while Change_Coordinates:
+        try:
+            x = int(input('Put odd x coordinate value (max of 13 is advised): '))
+            y = int(input('Put odd y coordinate value (max of 81 is advised): '))
+            if x % 2 == 0:
+                x += 1
+            if y % 2 == 0:
+                y += 1
+            Change_Coordinates = False
+        except TypeError:
+            print('Default of x = 13, y = 13 will be selected.')
+            x, y = 13, 13
+            False
+    G = Grid_Maker(x, y, 'X')
+    Wall_Maker(G)
+    Start_End(G)
+    Maze_Maker(G)
+    Grid_Printer(G)
+    Movement(G, 0, 0, '.')
+    User_Input = input(
+        'Press r for replay, e for exit, otherwise, the game will be replayed. ')
+    if User_Input == 'e':
+        Replay = False
+    elif User_Input == 'r':
+        Coordinates_change = input('Change coordinates? y/n ')
+        if Coordinates_change == 'y':
+            Change_Coordinates = True
+print('Made by Nabil Mansour, thank you for playing and goodbye.')
+print('Program will exit in 5 seconds.')
+time.sleep(5)
+#--------------------------------------------------------------------------------#
