@@ -1,8 +1,10 @@
 import os
 import random
-import msvcrt
 import time
-
+if os.name == 'nt':
+    import msvcrt
+else:
+    import getch
 
 #------------------------|The functions|------------------------#
 def Grid_Maker(x, y, Empty_Point_Value):
@@ -84,7 +86,10 @@ def Movement(Grid, Position_x, Position_y, trail):
     counter = 0
     while True:
         try:
-            Choice = msvcrt.getch()
+            if os.name == 'nt':  # If windows.
+                Choice = msvcrt.getch()
+            elif os.name != 'nt':
+                Choice = getch.getch()
             if str(Choice) == "b'd'":
                 if Grid[(Position_x, Position_y + 1)] == '◻':
                     pass
