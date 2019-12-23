@@ -1,6 +1,10 @@
 - Start working on the algorithm for the maze generator. DONE
 - Fix bug where u can get completely blocked (there must always be a connection). DONE
 - Fix going over the wall in Movement(). DONE
+- Add linux support
+
+
+Scrapped:
 - Do it such that the x,y don't have to be odd numbers.
 - Establish a timer and a game over screen for it.
 - Make it so that there is a start screen with settings that can change the x,y coordinates of the grid, timer time, dots or no dots as empty
