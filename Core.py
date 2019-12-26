@@ -1,7 +1,12 @@
 import os
 import random
 import time
-import msvcrt
+if os.name == 'nt':
+    import msvcrt
+    linux = False
+else:
+    import getch
+    windows = False
 
 #------------------------|The functions|------------------------#
 def Grid_Maker(x, y, Empty_Point_Value):
@@ -80,11 +85,15 @@ def Movement(Grid, Position_x, Position_y, trail):
     # Or, the trail can be a counter of moves.
     Will not allow movement if a wall exists and will assume that the wall is ◻.
     '''
+    
     counter = 0
     while True:
         try:
-            Choice = msvcrt.getch()
-            if str(Choice) == "b'd'":
+            if windows:
+                Choice = msvcrt.getch()
+            else:
+                Choice = getch.getch()
+            if str(Choice) == "b'd'" or str(Choice) == 'd':
                 if Grid[(Position_x, Position_y + 1)] == '◻':
                     pass
                 elif Grid[(Position_x, Position_y + 1)] == 'E':  # Win screen.
@@ -96,7 +105,7 @@ def Movement(Grid, Position_x, Position_y, trail):
                     Grid[(Position_x, Position_y + 1)] = 'O'
                     Position_y += 1
                     counter += 1
-            if str(Choice) == "b'a'":
+            if str(Choice) == "b'a'" or str(Choice) == 'a':
                 if Grid[(Position_x, Position_y - 1)] == '◻':
                     pass
                 elif Grid[(Position_x, Position_y - 1)] == 'E':
@@ -108,7 +117,7 @@ def Movement(Grid, Position_x, Position_y, trail):
                     Grid[(Position_x, Position_y - 1)] = 'O'
                     Position_y -= 1
                     counter += 1
-            if str(Choice) == "b's'":
+            if str(Choice) == "b's'" or str(Choice) == 's':
                 if Grid[(Position_x + 1, Position_y)] == '◻':
                     pass
                 elif Grid[(Position_x + 1, Position_y)] == 'E':
@@ -120,7 +129,7 @@ def Movement(Grid, Position_x, Position_y, trail):
                     Grid[(Position_x + 1, Position_y)] = 'O'
                     Position_x += 1
                     counter += 1
-            if str(Choice) == "b'w'":
+            if str(Choice) == "b'w'" or str(Choice) == 'w':
                 if Grid[(Position_x - 1, Position_y)] == '◻':
                     pass
                 elif Grid[(Position_x - 1, Position_y)] == 'E':
