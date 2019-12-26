@@ -3,7 +3,7 @@ import random
 import time
 if os.name == 'nt':
     import msvcrt
-    linux = False
+    windows = True
 else:
     import getch
     windows = False
