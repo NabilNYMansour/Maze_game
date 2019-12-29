@@ -170,10 +170,11 @@ def Start_End(Grid):
     Grid[(x_max, y_max)] = 'E'
 
 
-def Maze_Maker(Grid):
+def Maze_Maker(Grid, Build_up_bool):
     '''
     Creates a Maze given a Grid{dict}
     Will assume the Grid consists of 'X' empty values,'.' as trails in Grid_Maker{func} and Movement{func} and '◻' as walls.
+    Will show the build up of the maze if Build_up_bool{Bool} is True.
     '''
     Position = (0, 0)  # The start S.
     x_max = list(Grid.keys())[-1][0] + 1
@@ -288,7 +289,8 @@ def Maze_Maker(Grid):
                 Break(Position[0], Position[1] + 1)
                 Position = (Position[0], Position[1] + 2)
             Grid[(Position[0], Position[1])] = '.'
-            # Grid_Printer(Grid)  # Un-tag this to see this beauty in action.
+            if Build_up_bool == True:
+                Grid_Printer(Grid)  # Un-tag this to see this beauty in action.
             # time.sleep(0.25) # Un-tag to see it bit by bit.
         else:
             for i in range(x_max):
@@ -309,6 +311,7 @@ def Maze_Maker(Grid):
 #------------------------|Declarations and Organizations|------------------------#
 Replay = True
 Change_Coordinates = True
+Build_up_bool = False
 print('You will start from top left in S and must reach the bottom right in E in order to win!')
 print('Game works best if u maximize the terminal window.')
 while Replay:
@@ -316,6 +319,11 @@ while Replay:
         try:
             x = int(input('Put odd x coordinate value (min of 10 is advised): '))
             y = int(input('Put odd y coordinate value (min of 10 is advised): '))
+            Build_up = input('Show Maze build up? y/n ')
+            if Build_up == 'y':
+                Build_up_bool = True
+            if Build_up == 'n':
+                Build_up_bool = False
             if x % 2 == 0:
                 x += 1
             if y % 2 == 0:
@@ -331,7 +339,7 @@ while Replay:
     G = Grid_Maker(x, y, 'X')
     Wall_Maker(G)
     Start_End(G)
-    Maze_Maker(G)
+    Maze_Maker(G, Build_up_bool)
     Grid_Printer(G)
     Movement(G, 0, 0, '.')
     User_Input = input(
