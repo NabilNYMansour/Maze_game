@@ -9,6 +9,8 @@ else:
     windows = False
 
 #------------------------|The functions|------------------------#
+
+
 def Grid_Maker(x, y, Empty_Point_Value):
     '''
     Creates a grid given x{int} and y{int} coordinates and places Empty_Point_Value{single char. str} as the empty values in the grid.
@@ -85,7 +87,7 @@ def Movement(Grid, Position_x, Position_y, trail):
     # Or, the trail can be a counter of moves.
     Will not allow movement if a wall exists and will assume that the wall is ◻.
     '''
-    
+
     counter = 0
     while True:
         try:
@@ -160,14 +162,18 @@ def Wall_Maker(Grid):
             Grid[(i, j)] = '◻'
 
 
-def Start_End(Grid):
+def Start_End_Setter(Grid):
     '''
-    Places strings S and E to indicate the start and end of a maze in places 0,0 and x_max, y_max of Grid{dict}.
+    Places strings S and E to indicate the start and end of a maze in places randomly at the first and last columns.
+    Will output x position of starting value.
     '''
     x_max = list(Grid.keys())[-1][0]
     y_max = list(Grid.keys())[-1][1]
-    Grid[(0, 0)] = 'S'
-    Grid[(x_max, y_max)] = 'E'
+    Starting_x_value = random.randrange(0, x_max)
+    Ending_x_value = random.randrange(0, x_max)
+    Grid[(Starting_x_value, 0)] = 'S'
+    Grid[(Ending_x_value, y_max)] = 'E'
+    return Starting_x_value
 
 
 def Maze_Maker(Grid, Build_up_bool):
@@ -338,10 +344,10 @@ while Replay:
             Change_Coordinates = False
     G = Grid_Maker(x, y, 'X')
     Wall_Maker(G)
-    Start_End(G)
     Maze_Maker(G, Build_up_bool)
+    Starting_x_value = Start_End_Setter(G)
     Grid_Printer(G)
-    Movement(G, 0, 0, '.')
+    Movement(G, Starting_x_value, 0, '.')
     User_Input = input(
         'Press r for replay, e for exit, otherwise, the game will be replayed. ')
     if User_Input == 'e':
