@@ -315,7 +315,7 @@ def Maze_Maker(Grid, Build_up_bool):
 Replay = True
 Change_Coordinates = True
 Build_up_bool = False
-print('You will start from top left in S and must reach the bottom right in E in order to win!')
+print('You will start from the left in S and must reach the right in E in order to win!')
 print('Game works best if u maximize the terminal window.')
 while Replay:
     while Change_Coordinates:
