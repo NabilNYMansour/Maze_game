@@ -28,6 +28,6 @@ missing module named _frozen_importlib_external - imported by importlib._bootstr
 excluded module named _frozen_importlib - imported by importlib (optional), importlib.abc (optional)
 missing module named readline - imported by cmd (delayed, conditional, optional), code (delayed, conditional, optional), pdb (delayed, optional)
 missing module named 'org.python' - imported by pickle (optional), xml.sax (delayed, conditional)
-missing module named getch - imported by C:\Users\nabil\Google Drive\Ryerson_things\Fall 2019\CPS 109\Maze_Game_code\core.py (conditional)
+missing module named getch - imported by C:\Users\nabil\Google Drive\Ryerson_things\Fall 2019\CPS 109\Maze_Game_code\Core.py (conditional)
 missing module named posix - imported by os (conditional, optional)
 missing module named resource - imported by posix (top-level)

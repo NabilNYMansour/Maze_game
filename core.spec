@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['core.py'],
+a = Analysis(['Core.py'],
              pathex=['C:\\Users\\nabil\\Google Drive\\Ryerson_things\\Fall 2019\\CPS 109\\Maze_Game_code'],
              binaries=[],
              datas=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='core',
+          name='Core',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
