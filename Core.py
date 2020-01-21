@@ -1,12 +1,12 @@
-import os
-import random
-import time
-if os.name == 'nt':
-    import msvcrt
-    windows = True
+from os import name
+from os import system
+from random import randrange
+from random import sample
+from time import sleep
+if name == 'nt':
+    from msvcrt import getch
 else:
-    import getch
-    windows = False
+    from getch import getch
 
 #------------------------|The functions|------------------------#
 
@@ -28,10 +28,10 @@ def Grid_Printer(Grid):
     Prints a given Grid{dict} after clearing the terminal.
     Will also print a boarder with '◻'.
     '''
-    if os.name == 'nt':  # If windows.
-        os.system('cls')
+    if name == 'nt':  # If windows.
+        system('cls')
     else:  # If linux or others (assuming they are linux based).
-        os.system('clear')
+        system('clear')
     y_max = list(Grid.keys())[-1][-1] + 1
     # the y axis is needed to know where to stop printing each line and to skip y times to start the next line.
     print('◻ '*(y_max+2))
@@ -91,10 +91,7 @@ def Movement(Grid, Position_x, Position_y, trail):
     counter = 0
     while True:
         try:
-            if windows:
-                Choice = msvcrt.getch()
-            else:
-                Choice = getch.getch()
+            Choice = getch()
             if str(Choice) == "b'd'" or str(Choice) == 'd':
                 if Grid[(Position_x, Position_y + 1)] == '◻':
                     pass
@@ -169,8 +166,8 @@ def Start_End_Setter(Grid):
     '''
     x_max = list(Grid.keys())[-1][0]
     y_max = list(Grid.keys())[-1][1]
-    Starting_x_value = random.randrange(0, x_max)
-    Ending_x_value = random.randrange(0, x_max)
+    Starting_x_value = randrange(0, x_max)
+    Ending_x_value = randrange(0, x_max)
     Grid[(Starting_x_value, 0)] = 'S'
     Grid[(Ending_x_value, y_max)] = 'E'
     return Starting_x_value
@@ -277,7 +274,7 @@ def Maze_Maker(Grid, Build_up_bool):
         Selection_List = [i for i in range(4) if Check[i] == True]
         try:
             # There is a slice sine sample function outputs a list of only one value.
-            Selection_Coin = random.sample(Selection_List, 1)[0]
+            Selection_Coin = sample(Selection_List, 1)[0]
         except:
             Selection_Coin = None
         if Selection_Coin != None:
@@ -297,7 +294,7 @@ def Maze_Maker(Grid, Build_up_bool):
             Grid[(Position[0], Position[1])] = '.'
             if Build_up_bool == True:
                 Grid_Printer(Grid)  # Un-tag this to see this beauty in action.
-            # time.sleep(0.25) # Un-tag to see it bit by bit.
+            # sleep(0.25) # Un-tag to see it bit by bit.
         else:
             for i in range(x_max):
                 for j in range(y_max):
@@ -306,7 +303,7 @@ def Maze_Maker(Grid, Build_up_bool):
                         Break_to_dot(i, j)
                         break
     if Check_around_E():
-        coin = random.randrange(2)
+        coin = randrange(2)
         if coin == 0:
             Grid[(x_max - 2, y_max - 1)] = '.'
         else:
@@ -339,7 +336,7 @@ while Replay:
             Change_Coordinates = False
         except ValueError:
             print('Default of x = 13, y = 13 will be selected.')
-            time.sleep(2)
+            sleep(2)
             x, y = 13, 13
             Change_Coordinates = False
     G = Grid_Maker(x, y, 'X')
@@ -358,5 +355,5 @@ while Replay:
             Change_Coordinates = True
 print('Made by Nabil Mansour, thank you for playing and goodbye.')
 print('Program will exit in 5 seconds.')
-time.sleep(5)
+sleep(5)
 #--------------------------------------------------------------------------------#
