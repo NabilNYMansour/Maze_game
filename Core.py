@@ -9,8 +9,6 @@ else:
     from getch import getch
 
 #------------------------|The functions|------------------------#
-
-
 def Grid_Maker(x, y, Empty_Point_Value):
     '''
     Creates a grid given x{int} and y{int} coordinates and places Empty_Point_Value{single char. str} as the empty values in the grid.
